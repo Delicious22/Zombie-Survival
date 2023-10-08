@@ -1,6 +1,6 @@
 # 코딩 컨벤션
 
-### 주석
+## 주석
 함수에 대한 설명 밑에 매개변수에 대해 설명한다
 visual studio 기준 함수 윗줄에 /// (슬래쉬 3개)를 입력 후 엔터를 누르면 자동생성된다.)
 ```C#
@@ -17,7 +17,7 @@ private int AddHP(int hp, int add)
 
 
 
-### 변수명
+## 변수명
 |종류|컨벤션|비고|
 |--|--|--|
 |public 변수 | UpperCamelCase||
@@ -32,13 +32,16 @@ public interface IInteractable
 public const string NAME_SET = “asdasd”
 ```
 
-### 메서드, 인터페이스
+
+## 메서드, 인터페이스
 |종류|컨벤션|비고|
 |--|--|--|
 |메서드 | UpperCamelCase||
 |인터페이스 | UpperCamelCase|접두어 I|
 
-### 괄호
+
+
+## 괄호
 |종류| 컨벤션|비고|
 |--|--|--|
 |메서드 중괄호|내려서 쓴다||
