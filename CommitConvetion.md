@@ -1,6 +1,6 @@
 # 커밋 컨벤션
 
-### 커밋 구조
+## 커밋 구조
 > [태그] 제목
 >
 > 본문
@@ -8,7 +8,7 @@
 > 꼬릿말
 
 
-### [Type] Subject
+## [Type] Subject
 - 필수 사항
 - Type은 일종의 태그. 대문자로 시작한다
 - Type은 아래 목록 중에 적절한 것으로 작성한다
@@ -28,19 +28,20 @@
 |[Test] | 테스트 관련 코드 추가, 수정, 삭제 | |
 
 
-### Body(본문)
+## Body(본문)
 - 선택 사항이지만 가급적 작성한다
 - 자세히 작성한다
 - **무엇을** **왜 했는지** 작성한다
 - 한 문장이 끝나면 줄바꿈을 한다
 
-### Footer(꼬릿말)
+
+## Footer(꼬릿말)
 - 선택 사항
 - Issues 사용 시 Issue 번호를 작성한다
 - 이슈 해결 여부를 작성한다
 
 
-### 참고자료
+## 참고자료
 [Git | git 커밋 컨벤션 설정하기](https://velog.io/@shin6403/Git-git-%EC%BB%A4%EB%B0%8B-%EC%BB%A8%EB%B2%A4%EC%85%98-%EC%84%A4%EC%A0%95%ED%95%98%EA%B8%B0)
 [git commit convention](velog.io/@junho5336/git-commit-convention)
 [Git 커밋 메세지 스타일 가이드](https://siyoon210.tistory.com/56)
