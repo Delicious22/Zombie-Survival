@@ -39,12 +39,25 @@ public class GameManager : MonoBehaviour {
     }
 
     // 점수를 추가하고 UI 갱신
-    public void AddScore(int newScore) {
+
+    public void AddScore(int score)
+    {
+        if (!isGameover)
+        {
+            // 점수 추가
+            score += score;
+            // 점수 UI 텍스트 갱신
+            UIManager.instance.UpdateScoreText(score);
+        }
+
+    }
+
+    public void AddScore(EnemyData data) {
         // 게임 오버가 아닌 상태에서만 점수 증가 가능
         if (!isGameover)
         {
             // 점수 추가
-            score += newScore;
+            score += data.Score;
             // 점수 UI 텍스트 갱신
             UIManager.instance.UpdateScoreText(score);
         }

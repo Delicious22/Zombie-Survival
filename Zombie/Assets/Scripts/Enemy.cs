@@ -47,13 +47,14 @@ public class Enemy : LivingEntity {
     }
 
     // 적 AI의 초기 스펙을 결정하는 셋업 메서드
-    public void Setup(float newHealth, float newDamage, float newSpeed, Color skinColor) {
-        startingHealth = newHealth;
-        health = newHealth;
-        damage = newDamage;
+    public void Setup(EnemyData data) {
+        startingHealth = data.Health;
+        health = data.Health;
+        damage = data.Damage;
+        timeBetAttack = data.TimeBetAttack;
 
-        pathFinder.speed = newSpeed;
-        enemyRenderer.material.color = skinColor;
+        pathFinder.speed = data.Speed;
+        enemyRenderer.material.color = data.SkinColor;
     
     }
 

@@ -5,18 +5,9 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour {
     public Enemy enemyPrefab; // 생성할 적 AI
 
+    public EnemyData[] EnemyDatas; // 생성할 적 데이터
     public Transform[] spawnPoints; // 적 AI를 소환할 위치들
 
-    public float damageMax = 40f; // 최대 공격력
-    public float damageMin = 20f; // 최소 공격력
-
-    public float healthMax = 200f; // 최대 체력
-    public float healthMin = 100f; // 최소 체력
-
-    public float speedMax = 3f; // 최대 속도
-    public float speedMin = 1f; // 최소 속도
-
-    public Color strongEnemyColor = Color.red; // 강한 적 AI가 가지게 될 피부색
 
     private List<Enemy> enemies = new List<Enemy>(); // 생성된 적들을 담는 리스트
     private int wave; // 현재 웨이브
@@ -52,32 +43,29 @@ public class EnemySpawner : MonoBehaviour {
 
         for(int i = 0 ; i< spawnCount ; i++)
         {
-            float enemyIntensity = Random.Range(0f,1f);
-            CreateEnemy(enemyIntensity);
+            CreateEnemy();
         }
     }
 
     // 적을 생성하고 생성한 적에게 추적할 대상을 할당
-    private void CreateEnemy(float intensity) {
-        //Lerp 선형보간 
-        float health = Mathf.Lerp(healthMin,healthMax, intensity);
-        float damage = Mathf.Lerp(damageMin,damageMax, intensity);
-        float speed = Mathf.Lerp(speedMin,speedMax, intensity);
+    private void CreateEnemy() {
+        int spawnNum = Mathf.RoundToInt(wave * (Random.Range(0, wave * 0.1f)));
 
-        Color skinColor = Color.Lerp(Color.white, strongEnemyColor, intensity);
+        if (spawnNum > EnemyDatas.Length) spawnNum = EnemyDatas.Length;
+
+        EnemyData enemyData = EnemyDatas[spawnNum];
 
         Transform spawnPoint = spawnPoints[Random.Range(0,spawnPoints.Length)];
 
         Enemy enemy = Instantiate(enemyPrefab, spawnPoint.position, spawnPoint.rotation);
 
-        enemy.Setup(health,damage,speed,skinColor);
+        enemy.Setup(enemyData);
 
         enemies.Add(enemy);
 
 
         enemy.onDeath += () => enemies.Remove(enemy);
         enemy.onDeath += () => Destroy(enemy.gameObject, 10f);
-        enemy.onDeath += () => GameManager.instance.AddScore(100+(int)(intensity * 100));
-
+        enemy.onDeath += () => GameManager.instance.AddScore(enemyData);
     }
 }
