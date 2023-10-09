@@ -951,6 +951,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 540099476}
   m_CullTransparentMesh: 0
+--- !u!1 &568891005
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 568891006}
+  m_Layer: 0
+  m_Name: Object Pool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &568891006
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 568891005}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -60, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &779867628
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1698,6 +1729,9 @@ MonoBehaviour:
   - {fileID: 105253571}
   - {fileID: 877692341}
   - {fileID: 1730318107}
+  ObjectPool: {fileID: 568891006}
+  deactEnemys: []
+  enemies: []
 --- !u!4 &1159842485
 Transform:
   m_ObjectHideFlags: 0
@@ -2409,3 +2443,4 @@ SceneRoots:
   - {fileID: 1159842485}
   - {fileID: 1609071899}
   - {fileID: 1478615124}
+  - {fileID: 568891006}

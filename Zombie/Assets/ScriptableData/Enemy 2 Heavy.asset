@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6b6e2d6905087644a642ce8afbd8b0d, type: 3}
   m_Name: Enemy 2 Heavy
   m_EditorClassIdentifier: 
+  type: 2
   Health: 250
   Damage: 50
   TimeBetAttack: 1
-  Speed: 1
+  Speed: 2
   Score: 300
   SkinColor: {r: 0, g: 0, b: 0, a: 1}

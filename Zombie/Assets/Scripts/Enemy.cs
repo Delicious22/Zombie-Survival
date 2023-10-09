@@ -16,9 +16,11 @@ public class Enemy : LivingEntity {
     private Animator enemyAnimator; // 애니메이터 컴포넌트
     private AudioSource enemyAudioPlayer; // 오디오 소스 컴포넌트
     private Renderer enemyRenderer; // 렌더러 컴포넌트
+    private Collider[] enemyColliders; // 껏다 킬 콜라이더 컴포넌트
 
     public float damage = 20f; // 공격력
     public float timeBetAttack = 0.5f; // 공격 간격
+    public int EnemyTypeNum; // 좀비에게 적용되어있는 데이터타입 번호
     private float lastAttackTime; // 마지막 공격 시점
 
     // 추적할 대상이 존재하는지 알려주는 프로퍼티
@@ -42,8 +44,21 @@ public class Enemy : LivingEntity {
         pathFinder = GetComponent<NavMeshAgent>();
         enemyAnimator = GetComponent<Animator>();
         enemyAudioPlayer = GetComponent<AudioSource>();
-
+        enemyColliders = GetComponents<Collider>();
         enemyRenderer = GetComponentInChildren<Renderer>();
+    }
+
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+        for (int i = 0; i < enemyColliders.Length; i++)
+        {
+            enemyColliders[i].enabled = true;
+        }
+
+        pathFinder.isStopped = false;
+
+        StartCoroutine(UpdatePath());
     }
 
     // 적 AI의 초기 스펙을 결정하는 셋업 메서드
@@ -52,15 +67,11 @@ public class Enemy : LivingEntity {
         health = data.Health;
         damage = data.Damage;
         timeBetAttack = data.TimeBetAttack;
+        EnemyTypeNum = (int)data.type;
 
         pathFinder.speed = data.Speed;
         enemyRenderer.material.color = data.SkinColor;
     
-    }
-
-    private void Start() {
-        // 게임 오브젝트 활성화와 동시에 AI의 추적 루틴 시작
-        StartCoroutine(UpdatePath());
     }
 
     private void Update() {
@@ -114,7 +125,6 @@ public class Enemy : LivingEntity {
         
         // LivingEntity의 OnDamage()를 실행하여 데미지 적용
         
-        
         base.OnDamage(damage, hitPoint, hitNormal);
     }
 
@@ -123,14 +133,13 @@ public class Enemy : LivingEntity {
         // LivingEntity의 Die()를 실행하여 기본 사망 처리 실행
         base.Die();
 
-        Collider [] enemyColliders = GetComponents<Collider>();
         for (int i =0 ; i< enemyColliders.Length ; i++)
         {
             enemyColliders[i].enabled = false;
         }
 
         pathFinder.isStopped =true;
-        pathFinder.enabled = false;
+        //pathFinder.enabled = false;
 
         enemyAnimator.SetTrigger("Die");
         enemyAudioPlayer.PlayOneShot(deathSound);

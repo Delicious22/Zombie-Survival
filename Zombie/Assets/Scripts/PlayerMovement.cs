@@ -42,7 +42,7 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     /// <summary>
-    /// 캐릭터에서 마우스를 향하는 방향을 구해 회전시키기
+    /// 캐릭터가 마우스가 있는 방향을 바라보게 함
     /// </summary>
     private void LookMousePosition()
     {

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 
 // 적 게임 오브젝트를 주기적으로 생성
@@ -8,9 +9,14 @@ public class EnemySpawner : MonoBehaviour {
     public EnemyData[] EnemyDatas; // 생성할 적 데이터
     public Transform[] spawnPoints; // 적 AI를 소환할 위치들
 
-
+    private List<Enemy> deactEnemys = new List<Enemy>();
     private List<Enemy> enemies = new List<Enemy>(); // 생성된 적들을 담는 리스트
     private int wave; // 현재 웨이브
+
+    private void Start()
+    {
+        StartCoroutine(DeactEnemyCollector());
+    }
 
     private void Update() {
         // 게임 오버 상태일때는 생성하지 않음
@@ -49,23 +55,74 @@ public class EnemySpawner : MonoBehaviour {
 
     // 적을 생성하고 생성한 적에게 추적할 대상을 할당
     private void CreateEnemy() {
+        // 적용할 적 데이터 번호를 결정
         int spawnNum = Mathf.RoundToInt(wave * (Random.Range(0, wave * 0.1f)));
-
-        if (spawnNum > EnemyDatas.Length) spawnNum = EnemyDatas.Length;
-
+        if (spawnNum >= EnemyDatas.Length) spawnNum = EnemyDatas.Length -1;
         EnemyData enemyData = EnemyDatas[spawnNum];
 
+        // 적을 생성할 위치 랜덤 결정
         Transform spawnPoint = spawnPoints[Random.Range(0,spawnPoints.Length)];
 
-        Enemy enemy = Instantiate(enemyPrefab, spawnPoint.position, spawnPoint.rotation);
+        // 생성 할 적을 담을 변수
+        Enemy enemy = null;
 
-        enemy.Setup(enemyData);
+        // 비활성화 되있는 적들이 있으면 결정된 데이터를 가진 적이 있는지 검색
+        for (int i = 0; i < deactEnemys.Count; i++)
+        {
+            if (deactEnemys[i].EnemyTypeNum == (int)enemyData.type)
+            {
+                enemy = deactEnemys[i];
+                deactEnemys.Remove(enemy);
+                enemy.gameObject.SetActive(true);
+                enemy.transform.position = spawnPoint.position;
+                enemy.transform.rotation = spawnPoint.rotation;
+                break;
+            }
+        }
+
+        if (enemy == null)
+        {
+            enemy = Instantiate(enemyPrefab, spawnPoint.position, spawnPoint.rotation);
+            enemy.Setup(enemyData);
+            enemy.onDeath += () => enemies.Remove(enemy);
+            enemy.onDeath += () => StartCoroutine(AddDeactEnemyCoroutine(enemy, deactEnemys));
+            enemy.onDeath += () => GameManager.instance.AddScore(enemyData);
+        }
 
         enemies.Add(enemy);
+    }
 
+    /// <summary>
+    /// 죽은 좀비를 비활성화 리스트에 추가하고 오브젝트를 비활성화
+    /// enemy 자신과 비활성화 리스트를 매개변수로 받는다
+    /// </summary>
+    /// <param name="enemy"></param>
+    /// <param name="deactEnemys"></param>
+    /// <returns></returns>
+    IEnumerator AddDeactEnemyCoroutine(Enemy enemy, List<Enemy> deactEnemys)
+    {
+        yield return new WaitForSeconds(2f);
 
-        enemy.onDeath += () => enemies.Remove(enemy);
-        enemy.onDeath += () => Destroy(enemy.gameObject, 10f);
-        enemy.onDeath += () => GameManager.instance.AddScore(enemyData);
+        deactEnemys.Add(enemy);
+        enemy.gameObject.SetActive(false);
+    }
+
+    /// <summary>
+    /// 일정 시간마다 비활성화 리스트를 검사하고
+    /// 15개 이상 존재하면 가장 오래된 적을 삭제후 리스트에서 제거
+    /// </summary>
+    /// <returns></returns>
+    IEnumerator DeactEnemyCollector()
+    {
+        while(true)
+        {
+            if (deactEnemys.Count > 15)
+            {
+                Destroy(deactEnemys[0]);
+                deactEnemys.Remove(deactEnemys[0]);
+            }
+
+            yield return new WaitForSeconds(5f);
+        }
     }
 }
