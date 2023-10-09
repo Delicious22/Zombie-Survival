@@ -31,12 +31,27 @@ public class PlayerMovement : MonoBehaviour {
     // 입력값에 따라 캐릭터를 앞뒤로 움직임
     private void Move() {
         Vector3 moveDistance = playerInput.move * transform.forward * moveSpeed * Time.deltaTime;
-        playerRigidbody.MovePosition(playerRigidbody.position+moveDistance);
+        playerRigidbody.MovePosition(playerRigidbody.position + moveDistance);
     }
 
     // 입력값에 따라 캐릭터를 좌우로 회전
     private void Rotate() {
-        float turn = playerInput.rotate * rotateSpeed * Time.deltaTime;
-        playerRigidbody.rotation = playerRigidbody.rotation * Quaternion.Euler(0,turn,0f);                 
+        //float turn = playerInput.rotate * rotateSpeed * Time.deltaTime;
+        //playerRigidbody.rotation = playerRigidbody.rotation * Quaternion.Euler(0,turn,0f);
+        LookMousePosition();
+    }
+
+    /// <summary>
+    /// 캐릭터에서 마우스를 향하는 방향을 구해 회전시키기
+    /// </summary>
+    private void LookMousePosition()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit))
+        {
+            Vector3 mousePos = new Vector3(hit.point.x, transform.position.y, hit.point.z) - transform.position;
+            transform.forward = mousePos;
+        }
     }
 }
