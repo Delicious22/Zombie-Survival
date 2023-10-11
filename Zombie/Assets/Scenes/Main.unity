@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -99,7 +99,7 @@ LightmapSettings:
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 112000000, guid: e1393c90e45e84e1da11edafb2a7cc99,
     type: 2}
-  m_LightingSettings: {fileID: 4890085278179872738, guid: f562ce2f63a0d47e0b903e9716c6aa2f,
+  m_LightingSettings: {fileID: 4890085278179872738, guid: 8584fb7355b18ba4b83db6933455f54b,
     type: 2}
 --- !u!196 &4
 NavMeshSettings:
@@ -4104,10 +4104,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 1994020031, guid: 347e30fb5758442459efcb759f7c7cdc, type: 3}
+  bossPrefab: {fileID: 4654702396362299427, guid: dd4212cb8522a5b45ac865a007d46215,
+    type: 3}
   EnemyDatas:
   - {fileID: 11400000, guid: 1ce102568cf9cde48baf0efcf424dc70, type: 2}
   - {fileID: 11400000, guid: a4e95573a55e97445baf38490e1dcf3c, type: 2}
   - {fileID: 11400000, guid: 79527208a7415ea4ebec621679419679, type: 2}
+  BossData: {fileID: 11400000, guid: b1baa9ca27faa7a40b188b2cd5c817f3, type: 2}
   spawnPoints:
   - {fileID: 842554101}
   - {fileID: 105253571}
@@ -4606,7 +4609,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1423841905}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.41852474, y: 0.34116468, z: -0.17335857, w: 0.82364464}
+  m_LocalRotation: {x: 0.41852477, y: 0.3411646, z: -0.17335853, w: 0.8236447}
   m_LocalPosition: {x: -8, y: 16, z: -8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -5356,7 +5359,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1741140606}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.41852474, y: 0.34116468, z: -0.17335857, w: 0.82364464}
+  m_LocalRotation: {x: 0.41852477, y: 0.3411646, z: -0.17335853, w: 0.8236447}
   m_LocalPosition: {x: -8, y: 16, z: -8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
