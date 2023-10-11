@@ -2000,18 +2000,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 1994020031, guid: 347e30fb5758442459efcb759f7c7cdc, type: 3}
+  EnemyDatas:
+  - {fileID: 11400000, guid: 1ce102568cf9cde48baf0efcf424dc70, type: 2}
+  - {fileID: 11400000, guid: a4e95573a55e97445baf38490e1dcf3c, type: 2}
+  - {fileID: 11400000, guid: 79527208a7415ea4ebec621679419679, type: 2}
   spawnPoints:
   - {fileID: 842554101}
   - {fileID: 105253571}
   - {fileID: 877692341}
   - {fileID: 1730318107}
-  damageMax: 40
-  damageMin: 20
-  healthMax: 200
-  healthMin: 100
-  speedMax: 3
-  speedMin: 1
-  strongEnemyColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!4 &1159842485
 Transform:
   m_ObjectHideFlags: 0
