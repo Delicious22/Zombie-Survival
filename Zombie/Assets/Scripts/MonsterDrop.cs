@@ -5,71 +5,75 @@ using UnityEngine.UIElements;
 
 public class MonsterDrop : MonoBehaviour
 {
-    public DropInventory inventory; //ÀÌ°É ¿¬°áÇØ¾ß ¹¹¹¹¸¦ µå·ÓÇß´ÂÁö È®ÀÎ°¡´É.
+    public DropInventory DropInventory; //ì´ê±¸ ì—°ê²°í•´ì•¼ ë­ë­ë¥¼ ë“œë¡­í–ˆëŠ”ì§€ í™•ì¸ê°€ëŠ¥.
 
-    [SerializeField] float hidden = 0.2f; //È÷µç¾ÆÀÌÅÛÀÌ ³ª¿Ã È®·ü. Á¶Á¤ °¡´É.
-    public float pickedNum; //·£´ıÇÔ¼ö°¡ ¸Å¹ø »õ·Î »ÌÀ» ½Ç¼ö.
+    public float Hidden = 0.2f; //íˆë“ ì•„ì´í…œì´ ë‚˜ì˜¬ í™•ë¥ . ì¡°ì • ê°€ëŠ¥.
+    public float WalkiePercent = 0.1f; //ë¬´ì „ê¸°ê°€ ë‚˜ì˜¬ ê°€ëŠ¥ì„±.
+    public float PickedNum; //ëœë¤í•¨ìˆ˜ê°€ ë§¤ë²ˆ ìƒˆë¡œ ë½‘ì„ ì‹¤ìˆ˜.
 
-    public GameObject[] items;
+    public GameObject[] Items;
     //Walkie =0, Battery=1
-    //Bible =2, Cross =3, Holywater =4 ¿¡ ÇÒ´çµÊ.
+    //Bible =2, Cross =3, Holywater =4 ì— í• ë‹¹ë¨.
 
+    private void Update()
+    {
+        DropTable();
+    }
 
-    //private void Update()
-    //{
-    //    DropTable(); //Å×½ºÆ®¿ë ¶óÀÎ.
-    //}
-
-
-
-    //¿©±â¸¦ È®ÀÎÇØÁÖ¼¼¿ä!
-    //ÀÌ ½ºÅ©¸³Æ®¸¦ ¸ó½ºÅÍ ÇÁ¸®ÆÕ¿¡ ´Ş¾ÆÁÖ°í,
-    //Enemy.cs ½ºÅ©¸³Æ®¿¡¼­ Die Ã³¸® ¾È¿¡¼­ ÀÌ DropTable()ÇÔ¼ö¸¦ È£ÃâÇØÁÖ¼¼¿ä.
-    //¸ó½ºÅÍ°¡ Á×À¸¸é¼­ ÀÏÁ¤ È®·ü·Î ¾ÆÀÌÅÛÀ» ¶³±¸°Ô µË´Ï´Ù.
+    //ì—¬ê¸°ë¥¼ í™•ì¸í•´ì£¼ì„¸ìš”!
+    //ì´ ìŠ¤í¬ë¦½íŠ¸ë¥¼ ëª¬ìŠ¤í„° í”„ë¦¬íŒ¹ì— ë‹¬ì•„ì£¼ê³ ,
+    //Enemy.cs ìŠ¤í¬ë¦½íŠ¸ì—ì„œ Die ì²˜ë¦¬ ì•ˆì—ì„œ ì´ DropTable()í•¨ìˆ˜ë¥¼ í˜¸ì¶œí•´ì£¼ì„¸ìš”.
+    //ëª¬ìŠ¤í„°ê°€ ì£½ìœ¼ë©´ì„œ ì¼ì • í™•ë¥ ë¡œ ì•„ì´í…œì„ ë–¨êµ¬ê²Œ ë©ë‹ˆë‹¤.
     public void DropTable() 
     {
-        pickedNum = Random.value; //0fºÎÅÍ 1.0f »çÀÌÀÇ ½Ç¼ö¸¦ ¹İÈ¯ÇÔ.
-        Debug.Log("°í¸¥ °ªÀº"+ pickedNum);
-        if (pickedNum<(1-hidden))
+        PickedNum = Random.value; //0fë¶€í„° 1.0f ì‚¬ì´ì˜ ì‹¤ìˆ˜ë¥¼ ë°˜í™˜í•¨.
+        Debug.Log("ê³ ë¥¸ ê°’ì€"+ PickedNum);
+        if (PickedNum<(1-Hidden - WalkiePercent))
         {
-            if (0.3f <= pickedNum && pickedNum < (1-hidden) && !inventory.droppedBattery)
+            if (0.3f <= PickedNum && PickedNum < (1-Hidden - WalkiePercent) && !DropInventory.isDropBattery)
             {
-                Debug.Log("¹èÅÍ¸® µå·ÓÇÔ.");
-                inventory.droppedBattery = true;
-                DropItem(2);
+                Debug.Log("ë°°í„°ë¦¬ ë“œë¡­í•¨.");
+                DropInventory.isDropBattery = true;
+                DropItem(1);
             }
-            Debug.Log("¾Æ¹«°Íµµ µå·ÓµÇÁö ¾Ê¾Ò´Ù.");
+            Debug.Log("ì•„ë¬´ê²ƒë„ ë“œë¡­ë˜ì§€ ì•Šì•˜ë‹¤.");
         }
-        else if((1 - hidden)<=pickedNum)
+        else if((1 - Hidden - WalkiePercent)<= PickedNum && PickedNum< (1 - Hidden) && !DropInventory.isDropWalkie)
         {
-            //¼º¼ö, ½ÊÀÚ°¡, ¼º°æ ¼øÀ¸·Î µå·ÓµÊ.
-            if(!inventory.droppedHolywater)
+            Debug.Log("ë¬´ì „ê¸° ë“œë¡­í•¨.");
+            DropInventory.isDropBattery = true;
+            DropItem(0);
+        }
+        else if((1 - Hidden)<=PickedNum)
+        {
+            //ì„±ìˆ˜, ì‹­ìê°€, ì„±ê²½ ìˆœìœ¼ë¡œ ë“œë¡­ë¨.
+            if(!DropInventory.isDropHolywater)
             {
-                Debug.Log("¼º¼ö¸¦ µå·ÓÇÔ.");
-                inventory.droppedHolywater = true;
+                Debug.Log("ì„±ìˆ˜ë¥¼ ë“œë¡­í•¨.");
+                DropInventory.isDropHolywater = true;
                 DropItem(4);
             }
-            else if(!inventory.droppedCross)
+            else if(!DropInventory.isDropCross)
             {
-                Debug.Log("½ÊÀÚ°¡¸¦ µå·ÓÇÔ.");
-                inventory.droppedCross = true;
+                Debug.Log("ì‹­ìê°€ë¥¼ ë“œë¡­í•¨.");
+                DropInventory.isDropCross = true;
                 DropItem(3);
             }
-            else if(!inventory.droppedBible)
+            else if(!DropInventory.isDropBible)
             {
-                Debug.Log("¼º°æÀ» µå·ÓÇÔ.");
-                inventory.droppedBible = true;
+                Debug.Log("ì„±ê²½ì„ ë“œë¡­í•¨.");
+                DropInventory.isDropBible = true;
                 DropItem(2);
             }
             else
-                Debug.Log("¾Æ¹«°Íµµ µå·ÓµÇÁö ¾Ê¾Ò´Ù.");
+                Debug.Log("ì•„ë¬´ê²ƒë„ ë“œë¡­ë˜ì§€ ì•Šì•˜ë‹¤.");
         }
     }
 
-    private void DropItem(int DropItemNumber) //½ÇÁ¦ ¾ÆÀÌÅÛ instantiateÇÏ´Â ÇÔ¼ö.
+    private void DropItem(int DropItemNumber) //ì‹¤ì œ ì•„ì´í…œ instantiateí•˜ëŠ” í•¨ìˆ˜.
     {
         Vector3 spawnPosition = gameObject.transform.position + Vector3.up * 0.5f;
-        GameObject selectedItem = items[DropItemNumber];
+        GameObject selectedItem = Items[DropItemNumber];
         //Instantiate(selectedItem, spawnPosition, Quaternion.identity);
 
         switch (DropItemNumber)
