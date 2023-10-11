@@ -12,28 +12,28 @@ public class DropInventory : MonoBehaviour
     public GameObject IconBible;
     public GameObject IconCross;
     public GameObject IconHolywater;
-
-    //µå·ÓÅÛÀ» ÀÎº¥Åä¸®¿¡ °¡Áö°í ÀÖ³ª ¾Æ´Ñ°¡¸¦ ³ªÅ¸³»´Â bool.
+    
+    //ë“œë¡­í…œì„ ì¸ë²¤í† ë¦¬ì— ê°€ì§€ê³  ìˆë‚˜ ì•„ë‹Œê°€ë¥¼ ë‚˜íƒ€ë‚´ëŠ” bool.
     public bool isWalkie = false;
     public bool isBattery = false;
     public bool isBible = false;
     public bool isCross = false;
     public bool isHolywater = false;
 
-    //ÀÌ¹ø ÆÇ¿¡ ¸ó½ºÅÍ°¡ ÇÑ ¹øÀÌ¶óµµ µå·ÓÇß´ÂÁö¸¦ È®ÀÎÇÔ. (mosterdrop.cs¿¡¼­ »ç¿ëÇÏ°Ô µÊ.)
-    public bool droppedWalkie = false;
-    public bool droppedBattery = false;
-    public bool droppedBible = false;
-    public bool droppedCross = false;
-    public bool droppedHolywater = false;
+    //ì´ë²ˆ íŒì— ëª¬ìŠ¤í„°ê°€ í•œ ë²ˆì´ë¼ë„ ë“œë¡­í–ˆëŠ”ì§€ë¥¼ í™•ì¸í•¨. (mosterdrop.csì—ì„œ ì‚¬ìš©í•˜ê²Œ ë¨.)
+    public bool isDropWalkie = false;
+    public bool isDropBattery = false;
+    public bool isDropBible = false;
+    public bool isDropCross = false;
+    public bool isDropHolywater = false;
 
-    //¿£µù ÇÃ·¡±×
-    public bool endingEscape = false;
-    public bool endingExorcism = false;
+    //ì—”ë”© í”Œë˜ê·¸
+    public bool isEndingEscape = false;
+    public bool isEndingExorcism = false;
 
     void Start()
     {
-        //µå·ÓÅÛ ÀÎº¥Åä¸® ÃÊ±âÈ­
+        //ë“œë¡­í…œ ì¸ë²¤í† ë¦¬ ì´ˆê¸°í™”
         Slot1.SetActive(true);
         Slot2.SetActive(true);
         Slot3.SetActive(true);
@@ -46,16 +46,16 @@ public class DropInventory : MonoBehaviour
 
     void Update()
     {
-        if (isWalkie && isBattery && !endingEscape)
+        if (isWalkie && isBattery && !isEndingEscape)
         {
-            endingEscape = true;
-            Debug.Log("³ë¸»¿£µù Ãâ·Â!");
+            isEndingEscape = true;
+            Debug.Log("ë…¸ë§ì—”ë”© ì¶œë ¥!");
         }
 
-        if(isBible && isCross && isHolywater && !endingExorcism)
+        if(isBible && isCross && isHolywater && !isEndingExorcism)
         {
-            endingExorcism = true;
-            Debug.Log("È÷µç¿£µù Ãâ·Â!");
+            isEndingExorcism = true;
+            Debug.Log("íˆë“ ì—”ë”© ì¶œë ¥!");
         }
     }
 }

@@ -4,30 +4,30 @@ using UnityEngine;
 
 public class Ending_Exorcism : MonoBehaviour
 {
-    public Animator animator;
-    public float transitionTime = 0.8f;
-
-    public DropInventory dropinventory;
-    public GameObject scoreboard; //¿©±â¿¡ ½ºÄÚ¾îº¸µå ¿ÀºêÁ§Æ® ¿¬°á!
+    public Animator Animator;
+    private float transitionTime = 1f;
+    
+    public DropInventory Dropinventory;
+    public GameObject Scoreboard; //ì—¬ê¸°ì— ìŠ¤ì½”ì–´ë³´ë“œ ì˜¤ë¸Œì íŠ¸ ì—°ê²°!
     public bool toScoreboard = false;
 
     void Update()
     {
         if (toScoreboard)
         {
-            scoreboard.SetActive(true); //¿¬°áÇÑ ½ºÄÚ¾îº¸µå on!
-            toScoreboard = false; //µÎ¹ø ÀÌ»ó ½ÇÇàµÇÁö ¾Ê°Ô false·Î ¹Ù²ãÁØ´Ù.
+            Scoreboard.SetActive(true); //ì—°ê²°í•œ ìŠ¤ì½”ì–´ë³´ë“œ on!
+            toScoreboard = false; //ë‘ë²ˆ ì´ìƒ ì‹¤í–‰ë˜ì§€ ì•Šê²Œ falseë¡œ ë°”ê¿”ì¤€ë‹¤.
 
-            gameObject.SetActive(false);//ÀÚ½ÅÀº ºñÈ°¼ºÈ­.
+            gameObject.SetActive(false);//ìì‹ ì€ ë¹„í™œì„±í™”.
         }
     }
 
     private void OnEnable()
     {
-        if (dropinventory.endingExorcism)
+        if (Dropinventory.isEndingExorcism)
         {
-            Debug.Log("exorcism ¾Ö´Ï¸ŞÀÌ¼ÇÀ» Àç»ıÇÒ±î?");
-            StartCoroutine(playEnding(transitionTime)); //0.8fÈÄ ¾Ö´Ï¸ŞÀÌ¼Ç Àç»ı.
+            Debug.Log("exorcism ì• ë‹ˆë©”ì´ì…˜ì„ ì¬ìƒí• ê¹Œ?");
+            StartCoroutine(playEnding(transitionTime)); //0.8fí›„ ì• ë‹ˆë©”ì´ì…˜ ì¬ìƒ.
         }
     }
 
@@ -36,22 +36,22 @@ public class Ending_Exorcism : MonoBehaviour
     {
         yield return new WaitForSeconds(delaytime);
         Time.timeScale = 0f;
-        //start animationÀç»ıÇÏ¿© ¿£µù¿ÀºêÁ§Æ®µé(±×¸², ÅØ½ºÆ®)ÀÇ ¾ËÆÄ°ªÀ» 100À¸·Î ¸¸µé¸ç º¸¿©ÁÜ.
-        animator.SetTrigger("Start");
-        Debug.Log("exorcism ¾Ö´Ï¸ŞÀÌ¼Ç start Æ®¸®°Å");
+        //start animationì¬ìƒí•˜ì—¬ ì—”ë”©ì˜¤ë¸Œì íŠ¸ë“¤(ê·¸ë¦¼, í…ìŠ¤íŠ¸)ì˜ ì•ŒíŒŒê°’ì„ 100ìœ¼ë¡œ ë§Œë“¤ë©° ë³´ì—¬ì¤Œ.
+        Animator.SetTrigger("Start");
+        Debug.Log("exorcism ì• ë‹ˆë©”ì´ì…˜ start íŠ¸ë¦¬ê±°");
     }
 
-    public void endEnding() //¹öÆ°ÀÇ onclickÀ¸·Î ½ÇÇàµÇ´Â ÇÔ¼ö.
+    public void endEnding() //ë²„íŠ¼ì˜ onclickìœ¼ë¡œ ì‹¤í–‰ë˜ëŠ” í•¨ìˆ˜.
     {
-        //end animationÀç»ıÇÏ¿© ¿£µù¿ÀºêÁ§Æ®µé(±×¸², ÅØ½ºÆ®)ÀÇ ¾ËÆÄ°ªÀ» 0À¸·Î µÇµ¹¸².
-        animator.SetTrigger("End");
-        Debug.Log("exorcism ¾Ö´Ï¸ŞÀÌ¼Ç end Æ®¸®°Å");
+        //end animationì¬ìƒí•˜ì—¬ ì—”ë”©ì˜¤ë¸Œì íŠ¸ë“¤(ê·¸ë¦¼, í…ìŠ¤íŠ¸)ì˜ ì•ŒíŒŒê°’ì„ 0ìœ¼ë¡œ ë˜ëŒë¦¼.
+        Animator.SetTrigger("End");
+        Debug.Log("exorcism ì• ë‹ˆë©”ì´ì…˜ end íŠ¸ë¦¬ê±°");
 
-        //¿£µùÀÌ 2¹øÀÌ»ó Àç»ıµÇÁö ¾Ê°Ô bool ¹Ù²Ù±â.
-        dropinventory.isHolywater = false;
-        dropinventory.endingExorcism = false;
-        dropinventory.isCross = false;
-        dropinventory.isBible = false; //¹İµå½Ã ÀÌ ¼ø¼­´ë·Î ÇØÁÖ½Ê½Ã¿À.
+        //ì—”ë”©ì´ 2ë²ˆì´ìƒ ì¬ìƒë˜ì§€ ì•Šê²Œ bool ë°”ê¾¸ê¸°.
+        Dropinventory.isHolywater = false;
+        Dropinventory.isEndingExorcism = false;
+        Dropinventory.isCross = false;
+        Dropinventory.isBible = false; //ë°˜ë“œì‹œ ì´ ìˆœì„œëŒ€ë¡œ í•´ì£¼ì‹­ì‹œì˜¤.
 
         toScoreboard = true;
     }

@@ -8,12 +8,12 @@ public class EndingManager : MonoBehaviour
 
     void Update()
     {
-        if(dropinventory.endingEscape)
+        if(dropinventory.isEndingEscape)
         {
             Ending_Escape.SetActive(true);
         }
 
-        if(dropinventory.endingExorcism)
+        if(dropinventory.isEndingExorcism)
         {
             Ending_Exorcism.SetActive(true);
         }
