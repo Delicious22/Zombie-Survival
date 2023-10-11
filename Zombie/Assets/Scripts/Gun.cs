@@ -1,10 +1,12 @@
 ﻿using System.Collections;
+using Photon.Pun;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngineInternal;
 
 // 총을 구현한다
-public class Gun : MonoBehaviour {
+public class Gun : MonoBehaviourPun, IPunObservable
+{
     // 총의 상태를 표현하는데 사용할 타입을 선언한다
     public enum State {
         Ready, // 발사 준비됨
@@ -32,11 +34,40 @@ public class Gun : MonoBehaviour {
     public int magCapacity = 25; // 탄창 용량
     public int magAmmo; // 현재 탄창에 남아있는 탄약
 
-
     public float timeBetFire = 0.12f; // 총알 발사 간격
     public float reloadTime = 1.8f; // 재장전 소요 시간
     private float lastFireTime; // 총을 마지막으로 발사한 시점
 
+    // 주기적으로 자동 실행되는 동기화 메서드 OnPhotonSerializeView
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
+        // 로컬 오브젝트라면 쓰기 부분이 실행됨
+        if(stream.IsWriting)
+        {
+            // 남은 탄알 수를 네트워크를 통해 보내기
+            stream.SendNext(ammoRemain);
+            // 탄창의 탄알 수를 네트워크를 통해 보내기
+            stream.SendNext(magAmmo);
+            // 현재 총의 상태를 네트워크를 통해 보내기
+            stream.SendNext(state);
+        }
+        else
+        {
+            // 리모트 오브젝트라면 읽기 부분이 실행됨
+            // 남은 탄알 수를 네트워크를 통해 받기
+            ammoRemain = (int) stream.ReceiveNext();
+            // 탄창의 탄알 수를 네트워크를 통해 받기
+            magAmmo = (int) stream.ReceiveNext();
+            // 현재 총의 상태를 네트워크를 통해 받기
+            state = (State) stream.ReceiveNext();
+        }
+    }
+
+    // 남은 탄알을 추가하는 메서드
+    [PunRPC]
+    public void AddAmmo(int ammo)
+    {
+        ammoRemain += ammo;
+    }
 
     private void Awake() {
         // 사용할 컴포넌트들의 참조를 가져오기
@@ -69,44 +100,60 @@ public class Gun : MonoBehaviour {
             //마지막 총 발사시점 갱신
             Shot();
             // 발사
-
         }
-
     }
 
     // 실제 발사 처리
     private void Shot() {
-
-        RaycastHit hit;
-        Vector3 hitPosition = Vector3.zero;
-
-        //out 키워드는 변경사항을 유지한채로 인풋값을 내뱉음
-        if(Physics.Raycast(fireTransform.position, fireTransform.forward, out hit, fireDistance))
-        {
-            IDamageable target = hit.collider.GetComponent<IDamageable>();
-
-            if(target != null)
-            {
-                target.OnDamage(damage,hit.point, hit.normal);
-            }
-
-            hitPosition = hit.point;
-
-        }
-
-        else
-        {
-            hitPosition = fireTransform.position + fireTransform.forward *fireDistance;
-        }
-        
-
-        StartCoroutine(ShotEffect(hitPosition));
-
+        // 실제 발사 처리는 호스트에 대리
+        photonView.RPC("ShotProcessOnServer", RpcTarget.MasterClient);
+        // 남은 탄환 수를 -1
         magAmmo--;
-        if(magAmmo<=0)
+        if (magAmmo <= 0)
         {
+            // 탄창에 남은 탄알이 없다면 총의 현재 상태를 Empty로 갱신
             state = State.Empty;
         }
+    }
+
+    // 호스트에서 실행되는 실제 발사 처리
+    [PunRPC]
+    private void ShotProcessOnServer()
+    {
+        // 레이캐스트에 의한 충돌 정보를 저장하는 컨테이너
+        RaycastHit hit;
+        // 탄알이 맞은 곳을 저장할 변수
+        Vector3 hitPosition = Vector3.zero;
+
+        // 레이캐스트(시작 지점, 방향, 충돌 정보 컨텐이너, 사정거리)
+        if (Physics.Raycast(fireTransform.position, fireTransform.forward, out hit, fireDistance))
+        {
+            // 레이가 어떤 물체와 충돌한 경우
+
+            // 충돌한 상대방으로부터 IDamageable 오브젝트 가져오기 시도
+            IDamageable target = hit.collider.GetComponent<IDamageable>();
+            // 상대방으로부터 IDamageable 오브젝트를 가져오는 데 성공했다면
+            if (target != null)
+            {
+                target.OnDamage(damage, hit.point, hit.normal);
+            }
+            hitPosition = hit.point;
+        }
+        else
+        {
+            // 레이가 다른 물체와 충돌하지 않았다면
+            // 탄알이 최대 사정거리까지 날아갔을 때의 위치를 충돌 위치로 사용
+            hitPosition = fireTransform.position + fireTransform.forward * fireDistance;
+        }
+        // 발사 이펙트 재생 이펙트 재생은 모든 클라이언트에서 실행
+        photonView.RPC("ShotEffectProcessOnclients", RpcTarget.All, hitPosition);
+    }
+
+    // 이펙트 재생 코루틴을 랩핑하는 메서드
+    [PunRPC]
+    private void ShotEffectProcessOnclients(Vector3 hitPosition)
+    {
+        StartCoroutine(ShotEffect(hitPosition));
     }
 
     // 발사 이펙트와 소리를 재생하고 총알 궤적을 그린다
@@ -118,7 +165,6 @@ public class Gun : MonoBehaviour {
         gunAudioPlayer.PlayOneShot(shotClip);
         bulletLineRenderer.SetPosition(0,fireTransform.position);
         bulletLineRenderer.SetPosition(1,hitPosition);
-
 
         // 라인 렌더러를 활성화하여 총알 궤적을 그린다
         bulletLineRenderer.enabled = true;
