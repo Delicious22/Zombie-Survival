@@ -37,7 +37,6 @@ public class Gun : MonoBehaviour {
     public float reloadTime = 1.8f; // 재장전 소요 시간
     private float lastFireTime; // 총을 마지막으로 발사한 시점
 
-
     private void Awake() {
         // 사용할 컴포넌트들의 참조를 가져오기
         gunAudioPlayer=GetComponent<AudioSource>();
