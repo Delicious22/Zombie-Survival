@@ -8,11 +8,24 @@ public class PlayerInput : MonoBehaviour {
     public string fireButtonName = "Fire1"; // 발사를 위한 입력 버튼 이름
     public string reloadButtonName = "Reload"; // 재장전을 위한 입력 버튼 이름
 
+    /// <summary>
+    /// 무기 버튼을 인식하기 위한 버튼 1,2 추가. 
+    /// 유니티에서도 키세팅에 스왑 1,2 추가
+    /// </summary>
+    public string swapButtonName1 = "Swap1";
+    public string swapButtonName2 = "Swap2";
+
     // 값 할당은 내부에서만 가능
     public float move { get; private set; } // 감지된 움직임 입력값
     public float rotate { get; private set; } // 감지된 회전 입력값
     public bool fire { get; private set; } // 감지된 발사 입력값
     public bool reload { get; private set; } // 감지된 재장전 입력값
+
+    /// <summary>
+    /// 감지된 스왑 입력값
+    /// </summary>
+    public bool sDown1 {get ; private set;} 
+    public bool sDown2 {get ; private set;}
 
     // 매프레임 사용자 입력을 감지
     private void Update() {
@@ -34,5 +47,11 @@ public class PlayerInput : MonoBehaviour {
         fire = Input.GetButton(fireButtonName);
         // reload에 관한 입력 감지
         reload = Input.GetButtonDown(reloadButtonName);
+
+        /// <summary>
+        /// 무기 스왑을 위한 버튼 1,2 인식 추가
+        /// </summary>
+        sDown1 = Input.GetButtonDown(swapButtonName1);
+        sDown2 = Input.GetButtonDown(swapButtonName2);
     }
 }
