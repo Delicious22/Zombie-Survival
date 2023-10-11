@@ -3,7 +3,11 @@ guid: 552d32a6183ef4f6c891ae3ba6520ff9
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
+<<<<<<< HEAD
+  serializedVersion: 8
+=======
   serializedVersion: 12
+>>>>>>> f5d68ef526f7a5a348113b308504fd521308c62d
   mipmaps:
     mipMapMode: 0
     enableMipMap: 1
@@ -20,12 +24,18 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+<<<<<<< HEAD
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+=======
     flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
   ignoreMipmapLimit: 0
+>>>>>>> f5d68ef526f7a5a348113b308504fd521308c62d
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 1
@@ -57,6 +67,13 @@ TextureImporter:
   textureType: 0
   textureShape: 2
   singleChannelComponent: 0
+<<<<<<< HEAD
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - serializedVersion: 2
+=======
   flipbookRows: 1
   flipbookColumns: 1
   maxTextureSizeSet: 0
@@ -68,6 +85,7 @@ TextureImporter:
   cookieLightType: 0
   platformSettings:
   - serializedVersion: 3
+>>>>>>> f5d68ef526f7a5a348113b308504fd521308c62d
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -77,6 +95,9 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+<<<<<<< HEAD
+    androidETC2FallbackOverride: 0
+=======
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
@@ -132,6 +153,7 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+>>>>>>> f5d68ef526f7a5a348113b308504fd521308c62d
   spriteSheet:
     serializedVersion: 2
     sprites: []
@@ -145,9 +167,15 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+<<<<<<< HEAD
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+=======
     nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
+>>>>>>> f5d68ef526f7a5a348113b308504fd521308c62d
   userData: 
   assetBundleName: 
   assetBundleVariant: 
