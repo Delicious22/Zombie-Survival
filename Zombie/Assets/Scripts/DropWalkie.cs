@@ -2,12 +2,12 @@ using UnityEngine;
 
 public class DropWalkie : MonoBehaviour, IItem
 {
-    public GameObject iconWalkie;
-    public DropInventory inventory;
+    public GameObject IconWalkie;
+    public DropInventory Inventory;
     public void Use(GameObject target)
     {
-        inventory.isWalkie = true;
-        iconWalkie.SetActive(true);
+        Inventory.isWalkie = true;
+        IconWalkie.SetActive(true);
         Destroy(gameObject);
     }
 }

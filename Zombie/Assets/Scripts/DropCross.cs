@@ -2,15 +2,15 @@ using UnityEngine;
 
 public class DropCross : MonoBehaviour, IItem
 {
-    public GameObject iconCross;
-    public GameObject slot2;
-    public DropInventory inventory;
+    public GameObject IconCross;
+    public GameObject Slot2;
+    public DropInventory Inventory;
 
     public void Use(GameObject target)
     {
-        inventory.isCross = true;
-        iconCross.SetActive(true);
-        slot2.SetActive(false);
+        Inventory.isCross = true;
+        IconCross.SetActive(true);
+        Slot2.SetActive(false);
         Destroy(gameObject);
     }
 }

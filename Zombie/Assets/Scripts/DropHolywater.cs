@@ -2,15 +2,15 @@ using UnityEngine;
 
 public class DropHolywater : MonoBehaviour, IItem
 {
-    public GameObject iconHolywater;
-    public GameObject slot3;
-    public DropInventory inventory;
+    public GameObject IconHolywater;
+    public GameObject Slot3;
+    public DropInventory Inventory;
 
     public void Use(GameObject target)
     {
-        inventory.isHolywater = true;
-        iconHolywater.SetActive(true);
-        slot3.SetActive(false);
+        Inventory.isHolywater = true;
+        IconHolywater.SetActive(true);
+        Slot3.SetActive(false);
         Destroy(gameObject);
     }
 }

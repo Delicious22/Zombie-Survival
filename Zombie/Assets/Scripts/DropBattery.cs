@@ -2,12 +2,12 @@ using UnityEngine;
 
 public class DropBattery : MonoBehaviour, IItem
 {
-    public GameObject iconBattery;
-    public DropInventory inventory;
+    public GameObject IconBattery;
+    public DropInventory Inventory;
     public void Use(GameObject target)
     {
-        inventory.isBattery = true;
-        iconBattery.SetActive(true);
+        Inventory.isBattery = true;
+        IconBattery.SetActive(true);
         Destroy(gameObject);
     }
 }
