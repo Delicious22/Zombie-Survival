@@ -984,74 +984,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 540099476}
   m_CullTransparentMesh: 0
---- !u!1001 &754321836
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 5140153362524675107, guid: 7a50e28e000454927a4e937a6237efb9,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 1.2877477
-      objectReference: {fileID: 0}
-    - target: {fileID: 5140153362524675107, guid: 7a50e28e000454927a4e937a6237efb9,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5140153362524675107, guid: 7a50e28e000454927a4e937a6237efb9,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.7012997
-      objectReference: {fileID: 0}
-    - target: {fileID: 5140153362524675107, guid: 7a50e28e000454927a4e937a6237efb9,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.9848078
-      objectReference: {fileID: 0}
-    - target: {fileID: 5140153362524675107, guid: 7a50e28e000454927a4e937a6237efb9,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5140153362524675107, guid: 7a50e28e000454927a4e937a6237efb9,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5140153362524675107, guid: 7a50e28e000454927a4e937a6237efb9,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0.17364825
-      objectReference: {fileID: 0}
-    - target: {fileID: 5140153362524675107, guid: 7a50e28e000454927a4e937a6237efb9,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5140153362524675107, guid: 7a50e28e000454927a4e937a6237efb9,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5140153362524675107, guid: 7a50e28e000454927a4e937a6237efb9,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: -20
-      objectReference: {fileID: 0}
-    - target: {fileID: 5485013344628786841, guid: 7a50e28e000454927a4e937a6237efb9,
-        type: 3}
-      propertyPath: m_Name
-      value: ShotGunIcon
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 7a50e28e000454927a4e937a6237efb9, type: 3}
 --- !u!1001 &779867628
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1818,6 +1750,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6925233009334158472, guid: 75a0fd72daeaf4080a301e170c257318,
         type: 3}
+      propertyPath: damage
+      value: 250
+      objectReference: {fileID: 0}
+    - target: {fileID: 6925233009334158472, guid: 75a0fd72daeaf4080a301e170c257318,
+        type: 3}
       propertyPath: shotClip
       value: 
       objectReference: {fileID: 8300000, guid: 59641449076534dbdb1663e006f87dc4, type: 3}
@@ -1986,7 +1923,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1159842484
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2192,7 +2129,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1423841905}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.41852474, y: 0.34116468, z: -0.17335857, w: 0.82364464}
+  m_LocalRotation: {x: 0.41852477, y: 0.34116468, z: -0.17335857, w: 0.82364464}
   m_LocalPosition: {x: -8, y: 16, z: -8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2481,7 +2418,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1741140606}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.41852474, y: 0.34116468, z: -0.17335857, w: 0.82364464}
+  m_LocalRotation: {x: 0.41852477, y: 0.34116468, z: -0.17335857, w: 0.82364464}
   m_LocalPosition: {x: -8, y: 16, z: -8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2753,4 +2690,3 @@ SceneRoots:
   - {fileID: 1159842485}
   - {fileID: 1609071899}
   - {fileID: 1478615124}
-  - {fileID: 754321836}
