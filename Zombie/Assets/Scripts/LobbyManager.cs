@@ -2,13 +2,15 @@
 using Photon.Realtime; // 포톤 서비스 관련 라이브러리
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 // 마스터(매치 메이킹) 서버와 룸 접속을 담당
 public class LobbyManager : MonoBehaviourPunCallbacks {
     private string gameVersion = "1"; // 게임 버전
 
     public Text connectionInfoText; // 네트워크 정보를 표시할 텍스트
-    public Button joinButton; // 룸 접속 버튼
+    public UnityEngine.UI.Button joinButton; // 룸 접속 버튼
+    public InputField NickNameInput; // 닉네임 인풋 필드
 
     // 게임 실행과 동시에 마스터 서버 접속 시도
     private void Start() {
@@ -29,6 +31,8 @@ public class LobbyManager : MonoBehaviourPunCallbacks {
         joinButton.interactable = true;
         // 접속 정보 표시
         connectionInfoText.text = "온라인 : 마스터 서버와 연결됨";
+        // 닉네임 연결
+        PhotonNetwork.LocalPlayer.NickName = NickNameInput.text;
     }
 
     // 마스터 서버 접속 실패시 자동 실행
@@ -68,7 +72,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks {
         // 접속 상태 표시
         connectionInfoText.text = "빈 방이 없음, 새로운 방 생성...";
         // 최대 4명을 수용 가능한 빈 방 생성
-        PhotonNetwork.CreateRoom(null, new RoomOptions { MaxPlayers = 4 });
+        PhotonNetwork.CreateRoom(null, new RoomOptions { MaxPlayers = 5 });
     }
 
     // 룸에 참가 완료된 경우 자동 실행
