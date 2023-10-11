@@ -39,12 +39,36 @@ public class GameManager : MonoBehaviour {
     }
 
     // 점수를 추가하고 UI 갱신
-    public void AddScore(int newScore) {
+
+
+    // 함수 오버로딩으로 같은 이름으로 다른 매개변수를 받게 함
+
+    /// <summary>
+    /// 아이템을 먹었을 때 점수를 int 로 받아서 더함
+    /// </summary>
+    /// <param name="score"></param>
+    public void AddScore(int score)
+    {
+        if (!isGameover)
+        {
+            // 점수 추가
+            score += score;
+            // 점수 UI 텍스트 갱신
+            UIManager.instance.UpdateScoreText(score);
+        }
+
+    }
+
+    /// <summary>
+    /// EnemyData 타입을 받아서 저장되어있는 스코어를 더함
+    /// </summary>
+    /// <param name="data"></param>
+    public void AddScore(EnemyData data) {
         // 게임 오버가 아닌 상태에서만 점수 증가 가능
         if (!isGameover)
         {
             // 점수 추가
-            score += newScore;
+            score += data.Score;
             // 점수 UI 텍스트 갱신
             UIManager.instance.UpdateScoreText(score);
         }
