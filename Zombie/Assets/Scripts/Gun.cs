@@ -90,7 +90,6 @@ public class Gun : MonoBehaviour {
             }
 
             hitPosition = hit.point;
-
         }
 
         else

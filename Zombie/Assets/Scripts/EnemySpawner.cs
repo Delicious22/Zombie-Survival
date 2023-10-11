@@ -5,8 +5,10 @@ using UnityEngine;
 // 적 게임 오브젝트를 주기적으로 생성
 public class EnemySpawner : MonoBehaviour {
     public Enemy enemyPrefab; // 생성할 적 AI
+    public BossEnemy bossPrefab; // 보스 프리펩
 
     public EnemyData[] EnemyDatas; // 생성할 적 데이터
+    public EnemyData BossData; // 보스 좀비 데이터
     public Transform[] spawnPoints; // 적 AI를 소환할 위치들
 
     private List<Enemy> deactEnemys = new List<Enemy>();
@@ -26,7 +28,7 @@ public class EnemySpawner : MonoBehaviour {
         }
 
         // 적을 모두 물리친 경우 다음 스폰 실행
-        if (enemies.Count <= 0)
+        if (enemies.Count <= 0 && wave != 3)
         {
             SpawnWave();
         }
@@ -45,6 +47,12 @@ public class EnemySpawner : MonoBehaviour {
     private void SpawnWave() {
         wave ++ ;
 
+        if (wave == 3)
+        {
+            // 보스몬스터 소환
+            CreateBoss();
+            return;
+        }
         int spawnCount = Mathf.RoundToInt(wave * 1.5f);
 
         for(int i = 0 ; i< spawnCount ; i++)
@@ -90,6 +98,19 @@ public class EnemySpawner : MonoBehaviour {
         }
 
         enemies.Add(enemy);
+    }
+
+    private void CreateBoss()
+    {
+        Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
+
+        Enemy boss = Instantiate(bossPrefab, spawnPoint.position, spawnPoint.rotation);
+        boss.Setup(BossData);
+        boss.onDeath += () => enemies.Remove(boss);
+        boss.onDeath += () => Destroy(boss, 5f);
+        boss.onDeath += () => GameManager.instance.AddScore(BossData);
+
+        enemies.Add(boss);
     }
 
     /// <summary>

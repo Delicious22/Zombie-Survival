@@ -6,22 +6,23 @@ using UnityEngine.AI; // AI, 내비게이션 시스템 관련 코드를 가져�
 public class Enemy : LivingEntity {
     public LayerMask whatIsTarget; // 추적 대상 레이어
 
-    private LivingEntity targetEntity; // 추적할 대상
-    private NavMeshAgent pathFinder; // 경로계산 AI 에이전트
+    protected LivingEntity targetEntity; // 추적할 대상
+    protected NavMeshAgent pathFinder; // 경로계산 AI 에이전트
 
     public ParticleSystem hitEffect; // 피격시 재생할 파티클 효과
     public AudioClip deathSound; // 사망시 재생할 소리
     public AudioClip hitSound; // 피격시 재생할 소리
 
-    private Animator enemyAnimator; // 애니메이터 컴포넌트
-    private AudioSource enemyAudioPlayer; // 오디오 소스 컴포넌트
-    private Renderer enemyRenderer; // 렌더러 컴포넌트
-    private Collider[] enemyColliders; // 껏다 킬 콜라이더 컴포넌트
+    protected Animator enemyAnimator; // 애니메이터 컴포넌트
+    protected AudioSource enemyAudioPlayer; // 오디오 소스 컴포넌트
+    protected Renderer enemyRenderer; // 렌더러 컴포넌트
+    protected Collider[] enemyColliders; // 껏다 킬 콜라이더 컴포넌트
 
     public float damage = 20f; // 공격력
     public float timeBetAttack = 0.5f; // 공격 간격
     public int EnemyTypeNum; // 좀비에게 적용되어있는 데이터타입 번호
-    private float lastAttackTime; // 마지막 공격 시점
+    protected float lastAttackTime; // 마지막 공격 시점
+    protected IEnumerator updatePathCoroutine;
 
     // 추적할 대상이 존재하는지 알려주는 프로퍼티
     private bool hasTarget
@@ -39,7 +40,7 @@ public class Enemy : LivingEntity {
         }
     }
 
-    private void Awake() {
+    protected virtual void Awake() {
         // 초기화
         pathFinder = GetComponent<NavMeshAgent>();
         enemyAnimator = GetComponent<Animator>();
@@ -58,11 +59,12 @@ public class Enemy : LivingEntity {
 
         pathFinder.isStopped = false;
 
-        StartCoroutine(UpdatePath());
+        updatePathCoroutine = UpdatePath();
+        StartCoroutine(updatePathCoroutine);
     }
 
     // 적 AI의 초기 스펙을 결정하는 셋업 메서드
-    public void Setup(EnemyData data) {
+    public virtual void Setup(EnemyData data) {
         startingHealth = data.Health;
         health = data.Health;
         damage = data.Damage;
@@ -74,13 +76,13 @@ public class Enemy : LivingEntity {
     
     }
 
-    private void Update() {
+    protected virtual void Update() {
         // 추적 대상의 존재 여부에 따라 다른 애니메이션을 재생
         enemyAnimator.SetBool("HasTarget", hasTarget);
     }
 
     // 주기적으로 추적할 대상의 위치를 찾아 경로를 갱신
-    private IEnumerator UpdatePath() {
+    protected IEnumerator UpdatePath() {
         // 살아있는 동안 무한 루프
         while (!dead)
         {
@@ -128,6 +130,7 @@ public class Enemy : LivingEntity {
         base.OnDamage(damage, hitPoint, hitNormal);
     }
 
+
     // 사망 처리
     public override void Die() {
         // LivingEntity의 Die()를 실행하여 기본 사망 처리 실행
@@ -145,7 +148,7 @@ public class Enemy : LivingEntity {
         enemyAudioPlayer.PlayOneShot(deathSound);
     }
 
-    private void OnTriggerStay(Collider other) {
+    protected virtual void OnTriggerStay(Collider other) {
         // 트리거 충돌한 상대방 게임 오브젝트가 추적 대상이라면 공격 실행 
 
         if(!dead && Time.time >= lastAttackTime + timeBetAttack) 
@@ -157,7 +160,7 @@ public class Enemy : LivingEntity {
                 lastAttackTime = Time.time;
 
                 Vector3 hitPoint = other.ClosestPoint(transform.position);
-                Vector3 hitNormal = transform.position - other.transform.position;
+                Vector3 hitNormal = other.transform.position - transform.position;
 
                 attackTarget.OnDamage(damage,hitPoint,hitNormal);
             }
