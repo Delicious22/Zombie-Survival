@@ -2,18 +2,18 @@ using UnityEngine;
 
 public class EndingManager : MonoBehaviour
 {
-    public DropInventory dropinventory;
+    public DropInventory DropInventory; //인벤토리 여기에 할당.
     public GameObject Ending_Escape;
     public GameObject Ending_Exorcism;
 
     void Update()
     {
-        if(dropinventory.endingEscape)
+        if(DropInventory.isEndingEscape)
         {
             Ending_Escape.SetActive(true);
         }
 
-        if(dropinventory.endingExorcism)
+        if(DropInventory.isEndingExorcism)
         {
             Ending_Exorcism.SetActive(true);
         }
