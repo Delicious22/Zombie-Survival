@@ -23,10 +23,6 @@ public class MonsterDrop : MonoBehaviour
 
 
 
-    //여기를 확인해주세요!
-    //이 스크립트를 몬스터 프리팹에 달아주고,
-    //Enemy.cs 스크립트에서 Die 처리 안에서 이 DropTable()함수를 호출해주세요.
-    //몬스터가 죽으면서 일정 확률로 아이템을 떨구게 됩니다.
     public void DropTable() 
     {
         pickedNum = Random.value; //0f부터 1.0f 사이의 실수를 반환함.
