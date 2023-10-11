@@ -62,8 +62,7 @@ public class ItemSpawner : MonoBehaviour {
             }
             GameObject item = Instantiate(selectedItem, spawnPosition, Quaternion.identity);
             Destroy(item, 5f);
-        }
-        if (isShotgunAppear == true)
+        }else if(isShotgunAppear == true)
         {
             GameObject selectedItem = items[Random.Range(0, items.Length-1)];
             GameObject item = Instantiate(selectedItem, spawnPosition, Quaternion.identity);
