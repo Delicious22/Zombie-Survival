@@ -14,10 +14,13 @@ public class ItemSpawner : MonoBehaviour {
 
     private float lastSpawnTime; // 마지막 생성 시점
 
+    private bool isShotgunAppear;
+
     private void Start() {
         // 생성 간격과 마지막 생성 시점 초기화
         timeBetSpawn = Random.Range(timeBetSpawnMin, timeBetSpawnMax);
         lastSpawnTime = 0;
+        isShotgunAppear = false;
     }
 
     // 주기적으로 아이템 생성 처리 실행
@@ -44,11 +47,30 @@ public class ItemSpawner : MonoBehaviour {
         spawnPosition += Vector3.up * 0.5f;
 
         // 아이템 중 하나를 무작위로 골라 랜덤 위치에 생성
-        GameObject selectedItem = items[Random.Range(0, items.Length)];
-        GameObject item = Instantiate(selectedItem, spawnPosition, Quaternion.identity);
-
+        
+        ///<summary>
+        ///  샷건이 한번이라도 나왔으면  isShotgunAppear를 true 로 만들고
+        ///  그 다음부터는 random.range 범위에 shotgun 이 포함안되게하기 
+        ///  웨이브 넘어가도 안떴으면함 샷건은 단 한 번만 뜨게
+        /// </summary>
+        if (isShotgunAppear == false)
+        {
+            GameObject selectedItem = items[Random.Range(0, items.Length)];
+            if (selectedItem == items[3]) //items[3] == shotgun Prefabs
+            {
+                isShotgunAppear = true;
+            }
+            GameObject item = Instantiate(selectedItem, spawnPosition, Quaternion.identity);
+            Destroy(item, 5f);
+        }
+        if (isShotgunAppear == true)
+        {
+            GameObject selectedItem = items[Random.Range(0, items.Length-1)];
+            GameObject item = Instantiate(selectedItem, spawnPosition, Quaternion.identity);
+            Destroy(item, 5f);
+        }
         // 생성된 아이템을 5초 뒤에 파괴
-        Destroy(item, 5f);
+        
     }
 
     // 내비메시 위의 랜덤한 위치를 반환하는 메서드
