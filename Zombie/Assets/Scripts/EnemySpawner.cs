@@ -107,8 +107,8 @@ public class EnemySpawner : MonoBehaviour {
         Enemy boss = Instantiate(bossPrefab, spawnPoint.position, spawnPoint.rotation);
         boss.Setup(BossData);
         boss.onDeath += () => enemies.Remove(boss);
-        boss.onDeath += () => Destroy(boss, 5f);
         boss.onDeath += () => GameManager.instance.AddScore(BossData.Score);
+        boss.onDeath += () => StartCoroutine(BossClearCoroutine());
 
         enemies.Add(boss);
     }
@@ -145,5 +145,12 @@ public class EnemySpawner : MonoBehaviour {
 
             yield return new WaitForSeconds(5f);
         }
+    }
+
+    IEnumerator BossClearCoroutine()
+    {
+        yield return new WaitForSeconds(3f);
+
+        GameManager.instance.BossClear();
     }
 }

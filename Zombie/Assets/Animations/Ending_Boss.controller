@@ -86,7 +86,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Ending_Exorcism
+  m_Name: Ending_Boss
   serializedVersion: 5
   m_AnimatorParameters:
   - m_Name: Start
@@ -121,7 +121,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Ending_Exorcism_End
+  m_Name: Ending_Boss_End
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -147,7 +147,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Ending_Exorcism
+  m_Name: Ending_Boss
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -160,7 +160,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 021d645d1a47b5f4caf31d0bae2bf016, type: 2}
+  m_Motion: {fileID: 7400000, guid: 12484e584c6c88e4bad330b68e0e6db8, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 

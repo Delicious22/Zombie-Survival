@@ -5,6 +5,7 @@ public class EndingManager : MonoBehaviour
     public DropInventory dropinventory;
     public GameObject Ending_Escape;
     public GameObject Ending_Exorcism;
+    public GameObject Ending_Boss;
 
     void Update()
     {
@@ -16,6 +17,11 @@ public class EndingManager : MonoBehaviour
         if(dropinventory.isEndingExorcism)
         {
             Ending_Exorcism.SetActive(true);
+        }
+
+        if(GameManager.instance.isBossClear == true)
+        {
+            Ending_Boss.SetActive(true);
         }
     }
 }
