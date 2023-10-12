@@ -12,6 +12,12 @@ public class ShotGun : MonoBehaviour {
         Reloading // 재장전 중
     }
 
+    /// <summary>
+    /// Set Pellet Limit
+    /// </summary>
+    public int shotgunPellet = 5; 
+
+    public GameObject laser ; 
     public ShotgunState shotgunState { get; private set; } // 현재 총의 상태
 
     public Transform fireShotgunTransform; // 총알이 발사될 위치
@@ -29,10 +35,11 @@ public class ShotGun : MonoBehaviour {
     private float fireDistance = 150f; // 사정거리
 
     public int ammoRemain = 0; // 남은 전체 탄약
-    public int magCapacity = 1; // 탄창 용량
+    public int magCapacity = 1 ; // 탄창 용량
     public int magAmmo; // 현재 탄창에 남아있는 탄약
 
-
+    private int storeLastBullet ;
+    private bool isStoreBullet =false;
     public float timeBetFire = 1.5f; // 총알 발사 간격
     public float reloadTime = 3f; // 재장전 소요 시간
     private float lastFireTime; // 총을 마지막으로 발사한 시점
@@ -42,20 +49,39 @@ public class ShotGun : MonoBehaviour {
         gunAudioPlayer=GetComponent<AudioSource>();
         bulletLineRenderer = GetComponent<LineRenderer>();
 
-
         bulletLineRenderer.positionCount = 2;
         bulletLineRenderer.enabled = false;
-
     }
 
     private void OnEnable() {
         // 총 상태 초기화
 
-        magAmmo = magCapacity;
+
+        ///<summary>
+        /// isStoreBullet을 false로 선언 해주고 
+        /// magAmmo를 한번이라도 저장했으면 magCapacity로 부터 저장하는게 아니라
+        /// OnDisable할때 저장했던 값을 불러와서 저장하게함
+        /// Gun 스크립트에도 같은 방식으로 적용
+        /// </summary>
+        if(!isStoreBullet)
+        {
+            magAmmo = magCapacity;
+            isStoreBullet = true;
+        }
+        else
+            magAmmo = storeLastBullet;
         shotgunState = ShotgunState.Ready;
         //탄창채우고 총을 쏠상태로 변경
         lastFireTime = 0;
         // 총쏜시점 초기화
+    }
+
+    /// <summary>
+    /// 무기를 스왑 ( 비활성화) 하면서 갖고있던 총알 갯수를 저장함
+    /// </summary>
+    private void OnDisable()
+    {
+        storeLastBullet = magAmmo;
     }
 
     // 발사 시도
@@ -76,31 +102,28 @@ public class ShotGun : MonoBehaviour {
     // 실제 발사 처리
     private void Shot() {
 
+        
         RaycastHit hit;
         Vector3 hitPosition = Vector3.zero;
 
-        //out 키워드는 변경사항을 유지한채로 인풋값을 내뱉음
-        if(Physics.Raycast(fireShotgunTransform.position, fireShotgunTransform.forward, out hit, fireDistance))
+        /// <summary>
+        /// 샷건의 펠릿수 만큼 Raycast가 작동
+        /// </summary>
+        for (int i = 0; i < shotgunPellet ; i++)
         {
-            IDamageable target = hit.collider.GetComponent<IDamageable>();
-
-            if(target != null)
+            if(Physics.Raycast(fireShotgunTransform.position, fireShotgunTransform.forward+new Vector3(Random.Range(-0.7f,0.7f), Random.Range(-0.1f,0.1f),0), out hit, fireDistance))
             {
-                target.OnDamage(damage,hit.point, hit.normal);
-            }
+                IDamageable target = hit.collider.GetComponent<IDamageable>();
 
-            hitPosition = hit.point;
-
-        }
-
-        else
-        {
-            hitPosition = fireShotgunTransform.position + fireShotgunTransform.forward *fireDistance;
+                if(target != null)
+                {
+                    target.OnDamage(damage,hit.point, hit.normal);
+                }
+                hitPosition = hit.point;
+                ShotgunEffect(hitPosition);
+            }   
         }
         
-
-        StartCoroutine(ShotEffect(hitPosition));
-
         magAmmo--;
         if(magAmmo<=0)
         {
@@ -108,26 +131,53 @@ public class ShotGun : MonoBehaviour {
         }
     }
 
-    // 발사 이펙트와 소리를 재생하고 총알 궤적을 그린다
-    private IEnumerator ShotEffect(Vector3 hitPosition) {
 
+    /// <summary>
+    /// 잘은 모르겠지만 LineRenderer가 하나로 동시 작동이 안되는듯함(당연한걸수도). 
+    /// 그래서 코루틴이 안먹히는거같았음.
+    /// 차라리 LineRenderer를 하나로 쓰지말고 여러개를 만들어서 쓰자고 생각함.
+    /// 먼저 Laser 라는 라인렌더러 컴포넌트를 가진 아무 오브젝트를 만들어서 프리펩에 박음
+    /// 
+    /// 그러고 샷건이펙트라는 함수를 여러번 실행하면서 여러개의 레이저를 프리펩으로부터 불러냈음.
+    /// 그러한 레이저들은 각자의 LineRenderer 속성을 가지고 있기 때문에 
+    /// 코루틴을 이용해서 동시에 여러 작업이 가능해졌음. 
+    /// positionCount=0을 Coroutine으로 실행하면서 라인을 지웠음 
+    /// </summary>
+
+    private void ShotgunEffect(Vector3 end)
+    {
+        LineRenderer lr = Instantiate(laser).GetComponent<LineRenderer>();
+        lr.positionCount =2;
+        lr.SetPosition(0,fireShotgunTransform.position);
+        lr.SetPosition(1,end);
+        StartCoroutine(DisableShotEffect(lr));
+    }
+    private IEnumerator DisableShotEffect(LineRenderer lr) 
+    {
+        yield return new WaitForSeconds(0.15f);
+        lr.positionCount = 0 ;
+    }
+    /// // 발사 이펙트와 소리를 재생하고 총알 궤적을 그린다
+    private IEnumerator ShotEffect(Vector3 hitPosition) {
+        Debug.Log("asd1");
         muzzleShotgunFlashEffect.Play();
         shellShotgunEjectEffect.Play();
 
-        Debug.Log("Shot Effect On");
         gunAudioPlayer.PlayOneShot(shotClip);
         bulletLineRenderer.SetPosition(0,fireShotgunTransform.position);
         bulletLineRenderer.SetPosition(1,hitPosition);
-        Debug.Log("Shot Effect Off");
-
-        // 라인 렌더러를 활성화하여 총알 궤적을 그린다
+        
+        // // 라인 렌더러를 활성화하여 총알 궤적을 그린다
         bulletLineRenderer.enabled = true;
+        Debug.Log("asdd2");
 
-        // 0.03초 동안 잠시 처리를 대기
+        // // 0.03초 동안 잠시 처리를 대기
         yield return new WaitForSeconds(0.03f);
-
-        // 라인 렌더러를 비활성화하여 총알 궤적을 지운다
+        Debug.Log("asd23");
+        // // 라인 렌더러를 비활성화하여 총알 궤적을 지운다
         bulletLineRenderer.enabled = false;
+
+
     }
 
     // 재장전 시도

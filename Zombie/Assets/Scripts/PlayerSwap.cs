@@ -13,7 +13,6 @@ public class PlayerSwap : MonoBehaviour
     /// </summary>
     public GameObject [] weapons;
     public bool [] hasWeapons;
-
     public GameObject equipWeapon;
     private PlayerInput playerInput;
     // Start is called before the first frame update
