@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1464,8 +1464,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Animator: {fileID: 315577181}
   Dropinventory: {fileID: 729844878}
-  Scoreboard: {fileID: 66671892}
-  toScoreboard: 0
 --- !u!95 &315577181
 Animator:
   serializedVersion: 5
@@ -2967,8 +2965,6 @@ MonoBehaviour:
   Animator: {fileID: 891326746}
   MyAudio: {fileID: 891326747}
   Dropinventory: {fileID: 729844878}
-  Scoreboard: {fileID: 66671892}
-  toScoreboard: 0
 --- !u!1 &913802893
 GameObject:
   m_ObjectHideFlags: 0
@@ -4110,10 +4106,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 1994020031, guid: 347e30fb5758442459efcb759f7c7cdc, type: 3}
+  bossPrefab: {fileID: 4654702396362299427, guid: dd4212cb8522a5b45ac865a007d46215,
+    type: 3}
   EnemyDatas:
   - {fileID: 11400000, guid: 1ce102568cf9cde48baf0efcf424dc70, type: 2}
   - {fileID: 11400000, guid: a4e95573a55e97445baf38490e1dcf3c, type: 2}
   - {fileID: 11400000, guid: 79527208a7415ea4ebec621679419679, type: 2}
+  BossData: {fileID: 11400000, guid: b1baa9ca27faa7a40b188b2cd5c817f3, type: 2}
   spawnPoints:
   - {fileID: 842554101}
   - {fileID: 105253571}
@@ -4612,7 +4611,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1423841905}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.41852477, y: 0.34116468, z: -0.17335857, w: 0.82364464}
+  m_LocalRotation: {x: 0.41852477, y: 0.3411646, z: -0.17335854, w: 0.8236447}
   m_LocalPosition: {x: -8, y: 16, z: -8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -5066,15 +5065,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   items:
-  - {fileID: 1676094191218838, guid: 4229c84aca58549a586e9bb7aaae97c4, type: 3}
-  - {fileID: 1045172808418600, guid: c90bf41c504e541b98989b07b736097c, type: 3}
-  - {fileID: 1838412652947266, guid: b4e7df10a580e4a1a88a79995b741816, type: 3}
-  - {fileID: 5485013344628786841, guid: 7a50e28e000454927a4e937a6237efb9, type: 3}
   - {fileID: 1723857511}
   - {fileID: 1737891104}
   - {fileID: 1860010326}
   - {fileID: 1483937970}
   - {fileID: 985097190}
+  - {fileID: 1045172808418600, guid: c90bf41c504e541b98989b07b736097c, type: 3}
+  - {fileID: 1676094191218838, guid: 4229c84aca58549a586e9bb7aaae97c4, type: 3}
+  - {fileID: 1838412652947266, guid: b4e7df10a580e4a1a88a79995b741816, type: 3}
+  - {fileID: 5485013344628786841, guid: 7a50e28e000454927a4e937a6237efb9, type: 3}
   playerTransform: {fileID: 52015711}
   maxDistance: 5
   timeBetSpawnMax: 7
@@ -5385,7 +5384,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1741140606}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.41852477, y: 0.34116468, z: -0.17335857, w: 0.82364464}
+  m_LocalRotation: {x: 0.41852477, y: 0.3411646, z: -0.17335854, w: 0.8236447}
   m_LocalPosition: {x: -8, y: 16, z: -8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

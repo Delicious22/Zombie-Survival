@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
 
@@ -108,7 +108,7 @@ public class EnemySpawner : MonoBehaviour {
         boss.Setup(BossData);
         boss.onDeath += () => enemies.Remove(boss);
         boss.onDeath += () => Destroy(boss, 5f);
-        boss.onDeath += () => GameManager.instance.AddScore(BossData);
+        boss.onDeath += () => GameManager.instance.AddScore(BossData.Score);
 
         enemies.Add(boss);
     }
