@@ -9,7 +9,8 @@ public class EnemyData : ScriptableObject
     {
         Default = 0,
         Fast = 1,
-        Heavy = 2
+        Heavy = 2,
+        Boss
     }
     public EnemyType type = EnemyType.Default; // 현재 EnemyType
     public float Health = 100f; // 좀비 체력

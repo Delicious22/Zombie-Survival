@@ -1,11 +1,12 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.AI; // 내비메쉬 관련 코드
+using System.Collections.Generic;
 
 // 주기적으로 아이템을 플레이어 근처에 생성하는 스크립트
 public class ItemSpawner : MonoBehaviour {
-    public GameObject[] items; // 생성할 아이템들
+    public List<GameObject> items = new List<GameObject>(); // 생성할 아이템들
+       
     public Transform playerTransform; // 플레이어의 트랜스폼
-
     public float maxDistance = 5f; // 플레이어 위치로부터 아이템이 배치될 최대 반경
 
     public float timeBetSpawnMax = 7f; // 최대 시간 간격
@@ -14,13 +15,10 @@ public class ItemSpawner : MonoBehaviour {
 
     private float lastSpawnTime; // 마지막 생성 시점
 
-    private bool isShotgunAppear;
-
     private void Start() {
         // 생성 간격과 마지막 생성 시점 초기화
         timeBetSpawn = Random.Range(timeBetSpawnMin, timeBetSpawnMax);
         lastSpawnTime = 0;
-        isShotgunAppear = false;
     }
 
     // 주기적으로 아이템 생성 처리 실행
@@ -53,23 +51,16 @@ public class ItemSpawner : MonoBehaviour {
         ///  그 다음부터는 random.range 범위에 shotgun 이 포함안되게하기 
         ///  웨이브 넘어가도 안떴으면함 샷건은 단 한 번만 뜨게
         /// </summary>
-        if (isShotgunAppear == false)
+        int selectedItem = Random.Range(0, items.Count);
+        if (items[selectedItem].GetComponent<IItem>().IsPicked == true)
         {
-            GameObject selectedItem = items[Random.Range(0, items.Length)];
-            if (selectedItem == items[3]) //items[3] == shotgun Prefabs
-            {
-                isShotgunAppear = true;
-            }
-            GameObject item = Instantiate(selectedItem, spawnPosition, Quaternion.identity);
-            Destroy(item, 5f);
-        }else if(isShotgunAppear == true)
-        {
-            GameObject selectedItem = items[Random.Range(0, items.Length-1)];
-            GameObject item = Instantiate(selectedItem, spawnPosition, Quaternion.identity);
-            Destroy(item, 5f);
+            items.Remove(items[selectedItem]);
+            Spawn();
+            return;
         }
+        GameObject item = Instantiate(items[selectedItem], spawnPosition, Quaternion.identity);
+        Destroy(item, 5f);
         // 생성된 아이템을 5초 뒤에 파괴
-        
     }
 
     // 내비메시 위의 랜덤한 위치를 반환하는 메서드

@@ -11,6 +11,7 @@ public class PlayerHealth : LivingEntity {
 
     private AudioSource playerAudioPlayer; // 플레이어 소리 재생기
     private Animator playerAnimator; // 플레이어의 애니메이터
+    private Rigidbody playerRigidbody; // 플레이어의 리지드바디
 
     private PlayerMovement playerMovement; // 플레이어 움직임 컴포넌트
     private PlayerShooter playerShooter; // 플레이어 슈터 컴포넌트
@@ -19,7 +20,7 @@ public class PlayerHealth : LivingEntity {
         // 사용할 컴포넌트를 가져오기
         playerAnimator = GetComponent<Animator>();
         playerAudioPlayer = GetComponent<AudioSource>();
-
+        playerRigidbody = GetComponent<Rigidbody>();
         playerMovement = GetComponent<PlayerMovement>();
         playerShooter = GetComponent<PlayerShooter>();
     }
@@ -51,7 +52,9 @@ public class PlayerHealth : LivingEntity {
         {
             playerAudioPlayer.PlayOneShot(hitClip);
         }
-        
+
+        // 플레이어가 공격을 당했을 때 반대방향으로 받은 데미지만큼 밀려남
+        playerRigidbody.velocity = hitDirection.normalized * damage * 0.1f;
         // LivingEntity의 OnDamage() 실행(데미지 적용)
         base.OnDamage(damage, hitPoint, hitDirection);
 
