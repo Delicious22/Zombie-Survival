@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -99,7 +99,7 @@ LightmapSettings:
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 112000000, guid: e1393c90e45e84e1da11edafb2a7cc99,
     type: 2}
-  m_LightingSettings: {fileID: 4890085278179872738, guid: 8584fb7355b18ba4b83db6933455f54b,
+  m_LightingSettings: {fileID: 4890085278179872738, guid: f562ce2f63a0d47e0b903e9716c6aa2f,
     type: 2}
 --- !u!196 &4
 NavMeshSettings:
@@ -3514,6 +3514,12 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 959328459}
   m_CullTransparentMesh: 1
+--- !u!1 &985097190 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8595882623348793720, guid: fb3e8895af7c1c64fbea12c5c39830af,
+    type: 3}
+  m_PrefabInstance: {fileID: 9526003}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &985628741
 GameObject:
   m_ObjectHideFlags: 0
@@ -4104,13 +4110,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 1994020031, guid: 347e30fb5758442459efcb759f7c7cdc, type: 3}
-  bossPrefab: {fileID: 4654702396362299427, guid: dd4212cb8522a5b45ac865a007d46215,
-    type: 3}
   EnemyDatas:
   - {fileID: 11400000, guid: 1ce102568cf9cde48baf0efcf424dc70, type: 2}
   - {fileID: 11400000, guid: a4e95573a55e97445baf38490e1dcf3c, type: 2}
   - {fileID: 11400000, guid: 79527208a7415ea4ebec621679419679, type: 2}
-  BossData: {fileID: 11400000, guid: b1baa9ca27faa7a40b188b2cd5c817f3, type: 2}
   spawnPoints:
   - {fileID: 842554101}
   - {fileID: 105253571}
@@ -4609,7 +4612,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1423841905}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.41852477, y: 0.3411646, z: -0.17335853, w: 0.8236447}
+  m_LocalRotation: {x: 0.41852477, y: 0.34116468, z: -0.17335857, w: 0.82364464}
   m_LocalPosition: {x: -8, y: 16, z: -8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -4920,6 +4923,12 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1483937970 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5674526270853361432, guid: a354be3c5a294ed4caca5fdaa26b3f41,
+    type: 3}
+  m_PrefabInstance: {fileID: 682983402}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1508031112
 GameObject:
   m_ObjectHideFlags: 0
@@ -5061,6 +5070,11 @@ MonoBehaviour:
   - {fileID: 1045172808418600, guid: c90bf41c504e541b98989b07b736097c, type: 3}
   - {fileID: 1838412652947266, guid: b4e7df10a580e4a1a88a79995b741816, type: 3}
   - {fileID: 5485013344628786841, guid: 7a50e28e000454927a4e937a6237efb9, type: 3}
+  - {fileID: 1723857511}
+  - {fileID: 1737891104}
+  - {fileID: 1860010326}
+  - {fileID: 1483937970}
+  - {fileID: 985097190}
   playerTransform: {fileID: 52015711}
   maxDistance: 5
   timeBetSpawnMax: 7
@@ -5112,6 +5126,12 @@ Transform:
   - {fileID: 919704297}
   m_Father: {fileID: 52015711}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1723857511 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3983174172520684515, guid: 13db592a23e317d46926e2b336d6baf9,
+    type: 3}
+  m_PrefabInstance: {fileID: 305693310}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1723867349
 GameObject:
   m_ObjectHideFlags: 0
@@ -5272,6 +5292,12 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1730730192}
   m_CullTransparentMesh: 1
+--- !u!1 &1737891104 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3121411764899487187, guid: ea73ea5ef6fc18748880668c8ffdae21,
+    type: 3}
+  m_PrefabInstance: {fileID: 1449923565}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1741140606
 GameObject:
   m_ObjectHideFlags: 0
@@ -5359,7 +5385,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1741140606}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.41852477, y: 0.3411646, z: -0.17335853, w: 0.8236447}
+  m_LocalRotation: {x: 0.41852477, y: 0.34116468, z: -0.17335857, w: 0.82364464}
   m_LocalPosition: {x: -8, y: 16, z: -8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -5867,6 +5893,12 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1807130313}
   m_CullTransparentMesh: 1
+--- !u!1 &1860010326 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6333141126340326221, guid: e93f5a1b8a3155143bf8eafdfcbd17bc,
+    type: 3}
+  m_PrefabInstance: {fileID: 1783297616}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1935820809
 GameObject:
   m_ObjectHideFlags: 0
