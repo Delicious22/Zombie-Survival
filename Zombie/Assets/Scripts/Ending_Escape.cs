@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Ending_Escape : MonoBehaviour
 {
@@ -9,19 +10,7 @@ public class Ending_Escape : MonoBehaviour
 
     public AudioSource MyAudio;
     public DropInventory Dropinventory;
-    public GameObject Scoreboard; //여기에 스코어보드 오브젝트 연결!
-    public bool toScoreboard = false;
     
-    void Update()
-    {
-        if (toScoreboard)
-        {
-            Scoreboard.SetActive(true); //연결한 스코어보드 on!
-            toScoreboard = false; //두번 이상 실행되지 않게 false로 바꿔준다.
-
-            gameObject.SetActive(false);//자신은 비활성화.
-        }
-    }
 
     private void OnEnable()
     {
@@ -54,7 +43,13 @@ public class Ending_Escape : MonoBehaviour
         Dropinventory.isEndingEscape = false; 
         Dropinventory.isBattery = false; //반드시 이 순서대로 해주십시오.
 
-        toScoreboard = true;
+        GameRestart();
+    }
+
+    public void GameRestart()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
 
