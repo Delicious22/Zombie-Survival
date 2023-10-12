@@ -12,6 +12,8 @@ public class Gun : MonoBehaviour {
         Reloading // 재장전 중
     }
 
+    private bool isStoreBullet = false;
+    private int storeLastBullet;
     public State state { get; private set; } // 현재 총의 상태
 
     public Transform fireTransform; // 총알이 발사될 위치
@@ -51,11 +53,23 @@ public class Gun : MonoBehaviour {
     private void OnEnable() {
         // 총 상태 초기화
 
-        magAmmo = magCapacity;
+        
+        if(!isStoreBullet)
+        {
+            magAmmo = magCapacity;
+            isStoreBullet = true;
+        }else
+        {
+            magAmmo = storeLastBullet;
+        }
         state = State.Ready;
         //탄창채우고 총을 쏠상태로 변경
         lastFireTime = 0;
         // 총쏜시점 초기화
+    }
+    private void OnDisable()
+    {
+        storeLastBullet = magAmmo;
     }
 
     // 발사 시도
