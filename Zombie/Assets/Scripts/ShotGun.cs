@@ -88,7 +88,7 @@ public class ShotGun : MonoBehaviour {
     public void Fire() {
 
         //준비상태일때 마지막 총 발사시점에서 timebetFire이상의 시간이 지남
-        if(shotgunState == ShotgunState.Ready && Time.time >= lastFireTime+timeBetFire)
+        if(shotgunState == ShotgunState.Ready && Time.time >= lastFireTime+timeBetFire && magAmmo >=1)
         {
             lastFireTime = Time.time;
             //마지막 총 발사시점 갱신
@@ -109,6 +109,13 @@ public class ShotGun : MonoBehaviour {
         /// <summary>
         /// 샷건의 펠릿수 만큼 Raycast가 작동
         /// </summary>
+        /// 
+
+        muzzleShotgunFlashEffect.Play();
+        shellShotgunEjectEffect.Play();
+
+        gunAudioPlayer.PlayOneShot(shotClip);
+
         for (int i = 0; i < shotgunPellet ; i++)
         {
             if(Physics.Raycast(fireShotgunTransform.position, fireShotgunTransform.forward+new Vector3(Random.Range(-0.7f,0.7f), Random.Range(-0.1f,0.1f),0), out hit, fireDistance))
@@ -159,7 +166,6 @@ public class ShotGun : MonoBehaviour {
     }
     /// // 발사 이펙트와 소리를 재생하고 총알 궤적을 그린다
     private IEnumerator ShotEffect(Vector3 hitPosition) {
-        Debug.Log("asd1");
         muzzleShotgunFlashEffect.Play();
         shellShotgunEjectEffect.Play();
 
