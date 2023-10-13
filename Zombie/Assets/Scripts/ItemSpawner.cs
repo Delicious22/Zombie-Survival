@@ -1,10 +1,12 @@
 using UnityEngine;
 using UnityEngine.AI; // 내비메쉬 관련 코드
+using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 
 // 주기적으로 아이템을 플레이어 근처에 생성하는 스크립트
 public class ItemSpawner : MonoBehaviour {
     public List<GameObject> items = new List<GameObject>(); // 생성할 아이템들
+    private List<GameObject> initItems;
        
     public Transform playerTransform; // 플레이어의 트랜스폼
     public float maxDistance = 5f; // 플레이어 위치로부터 아이템이 배치될 최대 반경
@@ -14,6 +16,17 @@ public class ItemSpawner : MonoBehaviour {
     private float timeBetSpawn; // 생성 간격
 
     private float lastSpawnTime; // 마지막 생성 시점
+
+    private void Awake()
+    {
+        initItems = items;
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        items = initItems;
+    }
 
     private void Start() {
         // 생성 간격과 마지막 생성 시점 초기화
@@ -46,11 +59,6 @@ public class ItemSpawner : MonoBehaviour {
 
         // 아이템 중 하나를 무작위로 골라 랜덤 위치에 생성
         
-        ///<summary>
-        ///  샷건이 한번이라도 나왔으면  isShotgunAppear를 true 로 만들고
-        ///  그 다음부터는 random.range 범위에 shotgun 이 포함안되게하기 
-        ///  웨이브 넘어가도 안떴으면함 샷건은 단 한 번만 뜨게
-        /// </summary>
         int selectedItem = Random.Range(0, items.Count);
         if (items[selectedItem].GetComponent<IItem>().IsPicked == true)
         {
