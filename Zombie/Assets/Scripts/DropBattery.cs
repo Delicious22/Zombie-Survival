@@ -4,7 +4,7 @@ public class DropBattery : MonoBehaviour, IItem
 {
     public GameObject iconBattery;
     public DropInventory inventory;
-    private static bool isPicked = false;
+    public static bool isPicked = false;
 
     public bool IsPicked { get { return isPicked; } }
 
@@ -15,4 +15,10 @@ public class DropBattery : MonoBehaviour, IItem
         iconBattery.SetActive(true);
         Destroy(gameObject);
     }
+
+    public void SetPicked(bool picked)
+    {
+        isPicked = picked;
+    }
+
 }

@@ -5,7 +5,7 @@ public class DropWalkie : MonoBehaviour, IItem
 {
     public GameObject iconWalkie;
     public DropInventory inventory;
-    private static bool isPicked = false;
+    public static bool isPicked = false;
     public bool IsPicked { get { return isPicked; } }
 
     public void Use(GameObject target)
@@ -15,4 +15,10 @@ public class DropWalkie : MonoBehaviour, IItem
         iconWalkie.SetActive(true);
         Destroy(gameObject);
     }
+
+    public void SetPicked(bool picked)
+    {
+        isPicked = picked;
+    }
+
 }

@@ -6,7 +6,6 @@ using System.Collections.Generic;
 // 주기적으로 아이템을 플레이어 근처에 생성하는 스크립트
 public class ItemSpawner : MonoBehaviour {
     public List<GameObject> items = new List<GameObject>(); // 생성할 아이템들
-    private List<GameObject> initItems;
        
     public Transform playerTransform; // 플레이어의 트랜스폼
     public float maxDistance = 5f; // 플레이어 위치로부터 아이템이 배치될 최대 반경
@@ -17,15 +16,24 @@ public class ItemSpawner : MonoBehaviour {
 
     private float lastSpawnTime; // 마지막 생성 시점
 
-    private void Awake()
+    private void OnEnable()
     {
-        initItems = items;
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        items = initItems;
+        for (int i = 0; i < items.Count; i++)
+        {
+            if (items[i] != null)
+            {
+                items[i].GetComponent<IItem>().SetPicked(false);
+            }
+            else
+            {
+                Debug.Log(i + "번 없음");
+            }
+        }
     }
 
     private void Start() {

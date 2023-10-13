@@ -7,8 +7,9 @@ public class DropHolywater : MonoBehaviour, IItem
     public GameObject iconHolywater;
     public GameObject slot3;
     public DropInventory inventory;
-    private static bool isPicked = false;
+    public static bool isPicked = false;
     public bool IsPicked { get { return isPicked; } }
+
 
     public void Use(GameObject target)
     {
@@ -18,4 +19,10 @@ public class DropHolywater : MonoBehaviour, IItem
         slot3.SetActive(false);
         Destroy(gameObject);
     }
+
+    public void SetPicked(bool picked)
+    {
+        isPicked = picked;
+    }
+
 }

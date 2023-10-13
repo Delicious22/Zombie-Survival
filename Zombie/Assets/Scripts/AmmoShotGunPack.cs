@@ -26,4 +26,9 @@ public class AmmoShotGunPack : MonoBehaviour, IItem {
         // 사용되었으므로, 자신을 파괴
         Destroy(gameObject);
     }
+
+    public void SetPicked(bool picked)
+    {
+        isPicked = picked;
+    }
 }

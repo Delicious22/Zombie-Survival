@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 // 게임 점수를 증가시키는 아이템
@@ -10,5 +11,10 @@ public class Coin : MonoBehaviour, IItem {
         GameManager.instance.AddScore(score);
         // 사용되었으므로, 자신을 파괴
         Destroy(gameObject);
+    }
+
+    public void SetPicked(bool picked)
+    {
+
     }
 }
